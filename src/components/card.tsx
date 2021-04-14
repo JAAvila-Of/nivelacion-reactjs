@@ -1,28 +1,33 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { pokeFiltro } from "../controllers/pokeController";
-//import { ICard } from "../models/ICard";
+import type { ICard } from "../models/ICard";
 import { getPoke } from "../services/pokeapi";
 
-export const Card = () => {
-  let namePoke: string = "pikachu";
-  const [name, setName] = useState("");
-  const [image, setImage] = useState("");
+export const Card = (prop: any) => {
+  const { name } = prop;
+  let namePoke: string = name || "pikachu";
+  const [dataPoke, setdataPoke] = useState<ICard>({
+    image: "",
+    name: "",
+  });
 
   useEffect(() => {
     const process = async () => {
       const pokeJson = await getPoke(namePoke);
-      const pre = pokeFiltro(pokeJson);
-      setName(pre.name);
-      setImage(pre.image);
+      const pre: ICard = pokeFiltro(pokeJson);
+      setdataPoke(pre);
+      console.log("yes");
     };
     process();
-  }, []);
+  }, [namePoke, name]);
 
   return (
-    <div>
-      <img src={image} alt="pokeimagen" />
-      <p>{name}</p>
-    </div>
+    <>
+      <div>
+        <img src={dataPoke.image} alt="pokeimagen" />
+        <p>{dataPoke.name}</p>
+      </div>
+    </>
   );
 };

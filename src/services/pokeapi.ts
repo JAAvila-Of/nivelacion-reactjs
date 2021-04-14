@@ -8,7 +8,10 @@ export const getPoke = async (id: string) => {
     },
   });
 
-  if (!searchPoke.ok) return false;
+  if (!searchPoke.ok) {
+    console.log("hubo un error");
+    return false;
+  }
 
   const result = await searchPoke.json();
 
