@@ -1,26 +1,32 @@
-import React from "react";
-import { useState, useEffect } from "react";
-import { pokeFiltro } from "../controllers/pokeController";
-import type { ICard } from "../models/ICard";
-import { getPoke } from "../services/pokeapi";
+import { useContext } from "react";
+import { useGetPokes } from "../hooks/useGetPoke";
+import PokeDataContext from "../contexts/PokeDataContext";
 
 export const Card = (prop: any) => {
   const { name } = prop;
-  let namePoke: string = name || "pikachu";
-  const [dataPoke, setdataPoke] = useState<ICard>({
-    image: "",
-    name: "",
-  });
+  const { searched, setSearched } = useContext(PokeDataContext);
+  const { dataPoke, isLoading, isSearch } = useGetPokes(name);
 
-  useEffect(() => {
-    const process = async () => {
-      const pokeJson = await getPoke(namePoke);
-      const pre: ICard = pokeFiltro(pokeJson);
-      setdataPoke(pre);
-      console.log("yes");
-    };
-    process();
-  }, [namePoke, name]);
+  if (searched.name === name) {
+    return (
+      <>
+        <div>
+          <img src={searched.image} alt="pokeimagen" />
+          <p>{searched.name}</p>
+        </div>
+      </>
+    );
+  }
+
+  if (!isSearch) {
+    return <div>Busca un Pokemon</div>;
+  }
+
+  if (isLoading) {
+    return <div>Buscando...</div>;
+  }
+
+  setSearched(dataPoke);
 
   return (
     <>

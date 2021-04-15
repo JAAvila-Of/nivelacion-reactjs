@@ -1,4 +1,5 @@
 export interface ICard {
-  image: string;
-  name: string;
+  result?: boolean;
+  image?: string;
+  name?: string;
 }

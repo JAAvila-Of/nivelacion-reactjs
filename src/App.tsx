@@ -1,6 +1,8 @@
 import { Card } from "./components/card";
 import { Search } from "./components/Search";
 import { Link, Route, Switch } from "wouter";
+import { PokeContextProvider } from "./contexts/PokeDataContext";
+import {PokeNameContextProvider} from "./contexts/PokeNameContext";
 
 const App = () => {
   return (
@@ -9,10 +11,14 @@ const App = () => {
         <Link to="/search">Search</Link>
         <Link to="/">Home</Link>
       </nav>
-      <Switch>
-        <Route component={Search} path="/search" />
-        <Route component={Card} path="/" />
-      </Switch>
+      <PokeContextProvider>
+      <PokeNameContextProvider>
+        <Switch>
+          <Route component={Search} path="/search" />
+          <Route component={Card} path="/" />
+        </Switch>
+        </PokeNameContextProvider>
+      </PokeContextProvider>
     </>
   );
 };
