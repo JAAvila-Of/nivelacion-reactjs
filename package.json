@@ -14,16 +14,13 @@
     "wouter": "^2.7.4"
   },
   "scripts": {
-    "start": "concurrently --kill-others \"npm run dev:css\" \"react-scripts start\"",
-    "prestart": "tailwindcss build src/tailwind.css -o src/assets/tailwind.css",
-    "dev": "concurrently --kill-others \"npm run build:css\" \"npm run start\"",
-    "build": "react-scripts build",
-    "prebuild": "npm run build:css",
+    "dev": "concurrently --kill-others \"npm run script:dev\" \"npm run watch:css\"",
+    "build": "npm run build:css && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "script:dev": "npm run build:css && react-scripts start",
-    "build:css": "tailwindcss build src/tailwind.css -o public/assets/tailwind.css",
-    "dev:css": "postcss src/tailwind.css -o src/assets/tailwind.css -w"
+    "build:css": "tailwind build ./src/tailwind.css -c tailwind.config.js -o ./src/assets/tailwind.css",
+    "watch:css": "postcss ./src/tailwind.css -o ./src/assets/tailwind.css -w"
   },
   "eslintConfig": {
     "extends": [

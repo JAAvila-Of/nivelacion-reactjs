@@ -20,8 +20,12 @@ export const Card = (prop: any) => {
   if (searched.name === name) {
     return (
       <>
-        <div className="w-1/2 bg-blue-400 dark:bg-yellow-400 dark:hover:bg-yellow-700 rounded-lg shadow-xl mb-6 p-3">
-          <img src={searched.image} alt="pokeimagen" />
+        <div className="w-1/2 bg-indigo-300 dark:bg-yellow-400 dark:hover:bg-yellow-700 rounded-lg shadow-xl mb-6 p-3">
+          <img
+            src={searched.image}
+            alt="pokeimagen"
+            className="filter drop-shadow-lg"
+          />
           <div className="flex flex-col items-center">
             <p>{searched.name}</p>
             <button
