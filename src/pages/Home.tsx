@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import PokeListContext from "contexts/PokeDataList";
+import { CardComponent } from "components/Card/index";
 
 export const Home = () => {
   const { pokes } = useContext(PokeListContext);
@@ -7,12 +8,7 @@ export const Home = () => {
   return (
     <>
       {pokes.map((poke) => {
-        return (
-          <div>
-            <img src={poke.image} alt="pokeimagen" />
-            <p>{poke.name}</p>
-          </div>
-        );
+        return <CardComponent list={poke} />;
       })}
     </>
   );
